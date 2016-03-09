@@ -12,6 +12,11 @@ angular.module('starter', ['ionic'])
         url: "/home",
         templateUrl: "views/home/home.html",
         controller: "homeController"
+      })
+      .state("dashboard", {
+        url: "/dashboard",
+        templateUrl: "views/dashboard/dashboard.html",
+        controller: "dashboardController"
       });
 
     $urlRouterProvider.otherwise("/home");

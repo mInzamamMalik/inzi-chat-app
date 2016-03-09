@@ -3,7 +3,7 @@
  */
 angular.module("starter")
 
-  .controller('homeController', function ($scope,$state /*,$http, $ionicLoading, $ionicSideMenuDelegate, $ionicPopup, $timeout*/) {
+  .controller('dashboardController', function ($scope /*,$http, $ionicLoading, $ionicSideMenuDelegate, $ionicPopup, $timeout*/) {
 
     var ref = new Firebase("https://inzi-chat-app.firebaseio.com");
 
@@ -14,8 +14,6 @@ angular.module("starter")
           console.log("Login Failed!", error);
         } else {
           console.log("Authenticated successfully with payload:", authData);
-          $state.go("dashboard");
-
         }
       });
 
