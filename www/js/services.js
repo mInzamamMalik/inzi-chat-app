@@ -45,7 +45,7 @@ angular.module('starter')
         console.log("User is logged out");
         $state.go("home");
       }
-    }
+    };
     ref.onAuth(authDataCallback);
 
 
