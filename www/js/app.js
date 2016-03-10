@@ -17,10 +17,18 @@ angular.module('starter', ['ionic'])
         url: "/dashboard",
         templateUrl: "views/dashboard/dashboard.html",
         controller: "dashboardController"
+      })
+      .state("inbox", {
+        url: "/inbox",
+        templateUrl: "views/inbox/inbox.html",
+        controller: "inboxController"
       });
 
     $urlRouterProvider.otherwise("/home");
   })
+
+
+
 
 
   .controller("appController", function ($scope, $ionicSideMenuDelegate) {

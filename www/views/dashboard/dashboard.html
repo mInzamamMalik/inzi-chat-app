@@ -1,20 +1,20 @@
 <ion-view	view-title="dashboard">
 
-  <ion-nav-buttons side="primary">
-
+  <ion-nav-buttons side="right">
+    <button class="button button-balanced" ng-click="logout()">logout</button>
   </ion-nav-buttons>
 
   <ion-content>
     <div class="list card">
 
       <div class="item item-avatar">
-        <img src="mcfly.jpg">
-        <h2>Marty McFly</h2>
+        <img ng-if="authData.facebook.profileImageURL" ng-src="{{authData.facebook.profileImageURL}}">
+        <h2 ng-if="authData.facebook.displayName" ng-bind="authData.facebook.displayName"></h2>
         <p>November 05, 1955</p>
       </div>
 
       <div class="item item-body">
-        <img class="full-image" src="delorean.jpg">
+        <img class="full-image" ng-src="{{}}">
         <p>
           This is a "Facebook" styled Card. The header is created from a Thumbnail List item,
           the content is from a card-body consisting of an image and paragraph text. The footer
@@ -27,6 +27,9 @@
       </div>
 
     </div>
+
+    <button class="button button-balanced" ui-sref="inbox">inbox</button>
+
 
   </ion-content>
 </ion-view>

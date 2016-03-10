@@ -3,24 +3,13 @@
  */
 angular.module("starter")
 
-  .controller('homeController', function ($scope,$state /*,$http, $ionicLoading, $ionicSideMenuDelegate, $ionicPopup, $timeout*/) {
+  .controller('homeController', function ($scope,universalService /*,$http, $ionicLoading, $ionicSideMenuDelegate, $ionicPopup, $timeout*/) {
 
-    var ref = new Firebase("https://inzi-chat-app.firebaseio.com");
 
-    $scope.authWithFacebook = function(){
-
-      ref.authWithOAuthPopup("facebook", function(error, authData) {
-        if (error) {
-          console.log("Login Failed!", error);
-        } else {
-          console.log("Authenticated successfully with payload:", authData);
-          $state.go("dashboard");
-
-        }
-      });
-
+    $scope.authWithFacebook = function()
+    {
+      universalService.authWithFacebook()
     }
-
 
   });
 
