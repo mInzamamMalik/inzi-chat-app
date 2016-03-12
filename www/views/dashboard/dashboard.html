@@ -34,18 +34,26 @@
 
     <ion-list>
       <ion-item class="item-divider">online peoples</ion-item>
-      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="chat in userlist" type="item-text-wrap" href="#/tab/chats/{{chat.id}}">
-        <img ng-if="chat.profileImageURL" ng-src="{{chat.profileImageURL}}">
-        <h2>{{chat}}</h2>
-        <p>{{chat.lastText}}</p>
+
+
+      <ion-item class="item-remove-animate item-avatar item-icon-right"
+                ng-repeat="user in userlist"
+                type="item-text-wrap"
+                href="#/inbox:{{user.uid}}">
+
+
+        <img ng-if="user.profileImageURL" ng-src="{{user.profileImageURL}}">
+        <h2>{{user.name}}</h2>
+        <p>{{user.lastText}}</p>
         <i class="icon ion-chevron-right icon-accessory"></i>
 
-        <ion-option-button class="button-assertive" ng-click="remove(chat)">
+        <ion-option-button class="button-assertive" ng-click="remove(user)">
           Delete
         </ion-option-button>
       </ion-item>
-    </ion-list>
 
+
+    </ion-list>
 
 
   </ion-content>

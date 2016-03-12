@@ -68,8 +68,6 @@ angular.module('starter')
       notificationService.showAlert("Thankyou for using :-)", "hope you experienced well");
 
     }
-
-
   })
 
 
@@ -78,10 +76,15 @@ angular.module('starter')
     var vm = this;
     vm.userlist = "";
 
-    $rootScope.ref.on("value", function (snapShot) {
-      vm.userlist = snapShot.val();
-      console.log("underservice",vm.userlist);
-    });
+    vm.myUid = function () {
+      return $rootScope.ref.getAuth().uid;
+    };
+
+    //
+    //$rootScope.ref.on("value", function (snapShot) {
+    //  vm.userlist = snapShot.val();
+    //  console.log("underservice", vm.userlist);
+    //});
 
   })
 

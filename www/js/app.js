@@ -19,7 +19,7 @@ angular.module('starter', ['ionic','firebase'])
         controller: "dashboardController"
       })
       .state("inbox", {
-        url: "/inbox",
+        url: "/inbox:recipientUid",
         templateUrl: "views/inbox/inbox.html",
         controller: "inboxController"
       })

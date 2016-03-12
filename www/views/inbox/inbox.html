@@ -1,21 +1,22 @@
-<ion-view	view-title="dashboard">
+<ion-view view-title="dashboard">
 
-<ion-nav-buttons side="primary">
+  <ion-nav-buttons side="primary">
 
-</ion-nav-buttons>
+  </ion-nav-buttons>
 
-<ion-content>
-
-
+  <ion-content>
 
 
+  </ion-content>
 
 
+  <form class="bar bar-footer" ng-submit="sendMessage(myId , recipientId , messageText )">
 
-</ion-content>
+    <input required type="text" class="col" ng-model="messageText">
 
-<div class="bar bar-footer">
-  <input type="text" class="col">
-  <button class="button button-positive">Send</button>
-</div>
+    <button class="button button-positive" type="submit">Send</button>
+
+  </form>
+
+
 </ion-view>
