@@ -19,20 +19,20 @@ angular.module("starter")
     console.log("my uid:", $scope.myUid);
 
 
-    $scope.sendMessage = function ( text) {
-      console.log( text);
-
+    $scope.sendMessage = function ( ) {
 
       $scope.myMessageRef.push().set({
         from: $scope.myUid ,
         to: $scope.recipientUid,
-        text: text
+        text: $scope.messageText
       });
       $scope.recepientMessageRef.push().set({
         from: $scope.myUid ,
         to: $scope.recipientUid,
-        text: text
+        text: $scope.messageText
       } );
+
+      $scope.messageText = "";
 
     }
 
