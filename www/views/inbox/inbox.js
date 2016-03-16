@@ -42,10 +42,14 @@ angular.module("starter")
 
 
       $scope.messageList = $firebaseArray($scope.inboxMessagesRef);
-      $scope.inboxMessagesRef.on("value",function(){
+      $scope.inboxMessagesRef.on("child_added",function(){
         $ionicScrollDelegate.scrollBottom();
       });
 
+    setTimeout(function(){
+      $ionicScrollDelegate.scrollBottom();
+
+    },100)
 
 
   });
