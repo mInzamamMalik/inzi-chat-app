@@ -77,6 +77,8 @@ angular.module('starter')
     vm.userlist = "";
 
     vm.myUid = function () {
+      console.log("under service",$rootScope.ref.getAuth().uid);
+
       return $rootScope.ref.getAuth().uid;
     };
 
