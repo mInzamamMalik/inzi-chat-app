@@ -39,7 +39,7 @@
       <ion-item class="item-remove-animate item-avatar item-icon-right"
                 ng-repeat="user in userlist"
                 type="item-text-wrap"
-                href="#/inbox:{{user.uid}}">
+                href="#/inbox{{user.uid}}">
 
 
         <img ng-if="user.profileImageURL" ng-src="{{user.profileImageURL}}">
@@ -48,7 +48,7 @@
         <i class="icon ion-chevron-right icon-accessory"></i>
 
         <ion-option-button class="button-assertive" ng-click="remove(user)">
-          Delete
+        Delete
         </ion-option-button>
       </ion-item>
 
