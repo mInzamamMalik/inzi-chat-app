@@ -3,7 +3,7 @@
  */
 angular.module("starter")
 
-  .controller('inboxController', function ($scope, $firebaseArray, universalService, usersService, $stateParams, $rootScope ) {
+  .controller('inboxController', function ($scope, $firebaseArray, universalService, usersService, $stateParams, $rootScope, $ionicScrollDelegate ) {
 
 
     $scope.recipientUid = $stateParams.recipientUid;
@@ -42,6 +42,9 @@ angular.module("starter")
 
 
       $scope.messageList = $firebaseArray($scope.inboxMessagesRef);
+      $scope.inboxMessagesRef.on("value",function(){
+        $ionicScrollDelegate.scrollBottom();
+      });
 
 
 
