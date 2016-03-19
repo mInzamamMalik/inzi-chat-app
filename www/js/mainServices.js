@@ -8,20 +8,11 @@ angular.module('starter')
   .service("universalService", function ($rootScope, $state, notificationService, locationService) {
     var vm = this;
 
-    //var amOnline = new Firebase('https://inzi-chat-app.firebaseio.com/.info/connected');
 
     $rootScope.ref = new Firebase("https://inzi-chat-app.firebaseio.com");
 
     vm.authData = $rootScope.ref.getAuth();
-    if (vm.authData) {
-      console.log("getAuth: User " + vm.authData.uid + " is logged in with " + vm.authData.provider);
-      locationService.startWatchingMyGeoPosition();
-      $state.go("dashboard");
-    } else {
-      //console.log("User is logged out");
-      $state.go("home");
-      //notificationService.js.showAlert("please login","its look like you are not logged in")
-    }
+    authDataCallback(vm.authData);
 
 
     vm.authWithFacebook = function () {
@@ -138,8 +129,14 @@ angular.module('starter')
     function authDataCallback(authData) {
       if (authData) {
         console.log("authChanged: User " + authData.uid + " is logged in with " + authData.provider);
-        $rootScope.ref.child(authData.uid).update({loggedIn: true});
+
+        //make user online
+        $rootScope.ref.child(authData.uid).child("loggedIn").onDisconnect().set(false);
+        $rootScope.ref.child(authData.uid).child("loggedIn").set(true);
+
         locationService.startWatchingMyGeoPosition();
+        $state.go("dashboard");
+
       } else {
         console.log("User is logged out");
         $state.go("home");
@@ -148,16 +145,14 @@ angular.module('starter')
       }
     }
 
-
     vm.logout = function () {
       $rootScope.ref.offAuth(authDataCallback);
       $rootScope.ref.child(vm.authData.uid).update({loggedIn: false});
       $rootScope.ref.unauth();
       $state.go("home");
       notificationService.showAlert("Thankyou for using :-)", "hope you experienced well");
-
     }
-  })
+  });
 
 
 
