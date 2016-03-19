@@ -5,12 +5,18 @@ angular.module("starter")
 
   .controller('dashboardController', function ($rootScope, $scope, universalService, usersService /*,$http, $ionicLoading, $ionicSideMenuDelegate, $ionicPopup, $timeout*/) {
 
+    $rootScope.ref.child(universalService.authData.uid).on("value",function(snap){
+      $scope.myProfile = snap.val();
+    });
+
+
+
     $scope.authData = universalService.authData;
     $scope.userlist = [];
     $rootScope.ref.on("child_added", function (snapShot) {
       $scope.userlist.push(snapShot.val() );
       $scope.$apply();
-      console.log("under dashboard 0",$scope.userlist);
+      //console.log("under dashboard 0",$scope.userlist);
     });
 
 
@@ -29,7 +35,7 @@ angular.module("starter")
             userData.count = snap.val();
 
             $scope.notificationList.push(userData);
-            console.log("abc",$scope.notificationList);
+            //console.log("abc",$scope.notificationList);
 
           })
         }

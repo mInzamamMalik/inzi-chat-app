@@ -8,7 +8,13 @@ angular.module("starter")
 
     $scope.authWithFacebook = function () {
       universalService.authWithFacebook()
-    }
+    };
+    $scope.authWithTwitter = function () {
+      universalService.authWithTwitter()
+    };
+    $scope.authWithGoogle = function () {
+      universalService.authWithGoogle()
+    };
 
 
     // Now what happens when you want to retrieve

@@ -8,9 +8,10 @@
     <div class="list card">
 
       <div class="item item-avatar">
-        <img ng-if="authData.facebook.profileImageURL" ng-src="{{authData.facebook.profileImageURL}}">
-        <h2 ng-if="authData.facebook.displayName" ng-bind="authData.facebook.displayName"></h2>
-        <p>November 05, 1955</p>
+        <img ng-if="myProfile.profileImageURL" ng-src="{{myProfile.profileImageURL}}">
+        <h2 ng-if="myProfile.name" ng-bind="myProfile.name"></h2>
+        <p ng-bind="myProfile.joined | date"></p>
+
       </div>
 
       <div class="item item-body">
@@ -65,6 +66,7 @@
 
       <ion-item class="item-remove-animate item-avatar item-icon-right"
                 ng-repeat="user in userlist"
+                ng-hide=""
                 type="item-text-wrap"
                 href="#/inbox{{user.uid}}">
 
