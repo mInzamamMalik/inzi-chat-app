@@ -30,15 +30,56 @@ angular.module('starter', ['ionic','firebase'])
       });
 
     $urlRouterProvider.otherwise("/home");
+
+  })
+
+
+
+
+
+  .controller("appController", function ($rootScope,$ionicScrollDelegate) {
+
+
+
+    $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+
+      if(toState.name == "dashboard"){
+
+        console.log("scroll to top");
+        setTimeout(function () {
+          $ionicScrollDelegate.scrollTop();
+        }, 100)
+
+      }else if(toState.name == "inbox"){
+        console.log("scroll to bottom");
+        setTimeout(function () {
+          $ionicScrollDelegate.scrollBottom();
+        }, 100)
+      }
+
+    });
+
+
+
+
   })
 
 
 
 
 
-  .controller("appController", function () {
 
-  })
+
+
+
+
+
+
+
+
+
+
+
 
 
 

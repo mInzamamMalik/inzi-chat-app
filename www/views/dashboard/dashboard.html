@@ -4,28 +4,26 @@
     <button class="button button-balanced" ng-click="logout()">logout</button>
   </ion-nav-buttons>
 
-  <ion-content>
-    <div class="list card">
+  <ion-content >
+    <div class="list card" >
 
       <div class="item item-avatar">
         <img ng-if="myProfile.profileImageURL" ng-src="{{myProfile.profileImageURL}}">
 
         <h2 ng-if="myProfile.name" ng-bind="myProfile.name"></h2>
 
-        <p ng-bind="myProfile.joined | date"></p>
+        <p ng-show="myProfile.joined">joined: {{myProfile.joined | date}}</p>
 
       </div>
 
       <div class="item item-body">
-        <img class="full-image" ng-src="{{}}">
+        <!--<img class="full-image" ng-src="{{}}">-->
 
-        <div id="fb-root"></div><script>(function(d, s, id) {  var js, fjs = d.getElementsByTagName(s)[0];  if (d.getElementById(id)) return;  js = d.createElement(s); js.id = id;  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.3";  fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'facebook-jssdk'));</script><div class="fb-post" data-href="https://www.facebook.com/inziChat/posts/990666221014209" data-width="500"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/inziChat/posts/990666221014209">Posted by <a href="https://www.facebook.com/inziChat/">Chat App</a> on&nbsp;<a href="https://www.facebook.com/inziChat/posts/990666221014209">Friday, 25 March 2016</a></blockquote></div></div>
 
 
         <p>
-          This is a "Facebook" styled Card. The header is created from a Thumbnail List item,
-          the content is from a card-body consisting of an image and paragraph text. The footer
-          consists of tabs, icons aligned left, within the card-footer.
+          Hi guys hit Like and Share with your friends<br>
+          very soon i'll release build for your Android and iOS phones
         </p>
 
         <p>
@@ -33,11 +31,11 @@
 
         <div class="fb-like"
              data-href="https://www.facebook.com/MInzamamMalik"
-             data-layout="standard"
+             data-layout="button"
              data-action="like"
              data-show-faces="false"
              data-share="true">
-      </div>
+        </div>
         <!--///////fb like button code start/////////-->
         <!--<a href="#" class="subdued">1 Like</a>-->
         <!--<a href="#" class="subdued">5 Comments</a>-->

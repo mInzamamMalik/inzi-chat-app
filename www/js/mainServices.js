@@ -135,7 +135,7 @@ angular.module('starter')
         $rootScope.ref.child(authData.uid).child("loggedIn").set(true);
 
         locationService.startWatchingMyGeoPosition();
-        $state.go("dashboard");
+        $state.go("dashboard");//bugs: also going to dashboard if on inbox
 
       } else {
         console.log("User is logged out");

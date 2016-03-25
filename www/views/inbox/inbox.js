@@ -99,9 +99,7 @@ angular.module("starter")
     });
     console.log($scope.messageList);
 
-    setTimeout(function () {
-      $ionicScrollDelegate.scrollBottom();
-    }, 100)
+
 
 
   });
