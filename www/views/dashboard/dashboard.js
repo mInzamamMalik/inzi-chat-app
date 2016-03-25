@@ -3,7 +3,7 @@
  */
 angular.module("starter")
 
-  .controller('dashboardController', function ($rootScope, $scope, universalService, usersService /*,$http, $ionicLoading, $ionicSideMenuDelegate, $ionicPopup, $timeout*/) {
+  .controller('dashboardController', function ($rootScope, $scope, universalService, usersService,$ionicScrollDelegate /*,$http, $ionicLoading, $ionicPopup, $timeout*/) {
 
     $rootScope.ref.child(universalService.authData.uid).on("value", function (snap) {
       $scope.myProfile = snap.val();
@@ -52,7 +52,8 @@ angular.module("starter")
 
     $scope.logout = function () {
       universalService.logout();
-    }
+    };
+
 
 
   });

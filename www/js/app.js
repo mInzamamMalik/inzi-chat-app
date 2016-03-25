@@ -36,27 +36,9 @@ angular.module('starter', ['ionic','firebase'])
 
 
 
-  .controller("appController", function ($scope, $ionicSideMenuDelegate) {
-
+  .controller("appController", function () {
 
   })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

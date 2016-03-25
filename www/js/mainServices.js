@@ -140,7 +140,7 @@ angular.module('starter')
       } else {
         console.log("User is logged out");
         $state.go("home");
-        notificationService.showAlert("please login again", "its look like your session is expired")
+        //notificationService.showAlert("please login again", "its look like your session is expired")
 
       }
     }
