@@ -4,8 +4,8 @@
     <button class="button button-balanced" ng-click="logout()">logout</button>
   </ion-nav-buttons>
 
-  <ion-content >
-    <div class="list card" >
+  <ion-content overflow-scroll="false" >
+    <div class="list card" style="overflow: visible">
 
       <div class="item item-avatar">
         <img ng-if="myProfile.profileImageURL" ng-src="{{myProfile.profileImageURL}}">
@@ -18,16 +18,7 @@
 
       <div class="item item-body">
         <!--<img class="full-image" ng-src="{{}}">-->
-
-
-
-        <p>
-          Hi guys hit Like and Share with your friends<br>
-          very soon i'll release build for your Android and iOS phones
-        </p>
-
-        <p>
-          <!--///////fb like button code start/////////-->
+        <!--///////fb like button code start/////////-->
 
         <div class="fb-like"
              data-href="https://www.facebook.com/MInzamamMalik"
@@ -37,6 +28,17 @@
              data-share="true">
         </div>
         <!--///////fb like button code start/////////-->
+
+
+        <p>
+          Message From <a href="http://facebook.com/malikasinger">Inzamam</a>: <br><br>
+          Welcome to the App guys hit Like and Share with your friends<br>
+          very soon i'll release build for your Android and iOS phones<br><br>
+          if you notice bug you can <a href="mailto:malikasinger@gmail.com">report here</a>
+        </p>
+
+        <p>
+
         <!--<a href="#" class="subdued">1 Like</a>-->
         <!--<a href="#" class="subdued">5 Comments</a>-->
         </p>
