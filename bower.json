@@ -5,6 +5,8 @@
     "ionic": "driftyco/ionic-bower#1.2.4"
   },
   "dependencies": {
-    "angularfire": "^1.1.4"
+    "angularfire": "^1.1.4",
+    "firebase": "^2.4.1",
+    "angularjs-geolocation": "^0.1.1"
   }
 }
