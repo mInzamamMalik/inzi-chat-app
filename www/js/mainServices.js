@@ -5,7 +5,7 @@
 
 angular.module('starter')
 
-  .service("universalService", function ($rootScope, $state, notificationService, locationService) {
+  .service("universalService", function ($rootScope, $state, notificationService, locationService,$ionicHistory ) {
     var vm = this;
 
 
@@ -135,7 +135,13 @@ angular.module('starter')
         $rootScope.ref.child(authData.uid).child("loggedIn").set(true);
 
         locationService.startWatchingMyGeoPosition();
-        $state.go("dashboard");//bugs: also going to dashboard if on inbox
+
+        //console.log("current view is:",$ionicHistory.currentView());
+        if($ionicHistory.currentView().stateName == "home"){
+
+          $state.go("dashboard");
+
+        }
 
       } else {
         console.log("User is logged out");
