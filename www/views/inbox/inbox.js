@@ -14,10 +14,11 @@ angular.module("starter")
 
     var notificationRef = $rootScope.ref.child($scope.myUid).child("notification/newMessages").child($scope.recipientUid);
 
-    (function(){
-      notificationRef.set(0);
+    var makeNotificationNull = function(){
+      notificationRef.set(null);
       console.log("removed");
-    })();
+    };
+    makeNotificationNull();
 
 
     ///////////////////////////////////////////////////////////////
@@ -48,6 +49,8 @@ angular.module("starter")
 
 //////////////////send message started///////////////////////////////////////////////////////////////////////////////
     $scope.sendMessage = function () {
+
+      makeNotificationNull();
 
       $scope.myMessageRef.push().set({
         from: $scope.myUid,
