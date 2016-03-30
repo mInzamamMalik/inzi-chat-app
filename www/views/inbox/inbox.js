@@ -100,9 +100,52 @@ angular.module("starter")
     $scope.inboxMessagesRef.on("child_added", function () {
       $ionicScrollDelegate.scrollBottom();
     });
-    console.log($scope.messageList);
 
 
+    $scope.uploadImage = function () {
+      console.log("sdf");
+
+      document.getElementById("file-input").addEventListener('change', uploadImageToFirebase, false);
+      document.getElementById("file-input").click();
+    }
+
+    function uploadImageToFirebase(event) {
+      var filename = event.target.files[0];
+      var fr = new FileReader();
+
+      fr.readAsDataURL(filename);
+
+
+      fr.onload = function (res) {
+
+        //ImgObj.image = res.target.result;
+
+        $scope.myMessageRef.push().set({
+            from: $scope.myUid,
+            to: $scope.recipientUid,
+            //text: $scope.messageText,
+            image: res.target.result,
+            timeStamp: Firebase.ServerValue.TIMESTAMP
+          })
+
+          .then(function (val) {
+
+            $scope.recepientMessageRef.push().set({
+              from: $scope.myUid,
+              to: $scope.recipientUid,
+              //text: $scope.messageText,
+              image: res.target.result,
+              timeStamp: Firebase.ServerValue.TIMESTAMP
+            })
+
+
+          }, function (error) {
+            console.log("ERROR", error);
+          })
+      };
+
+
+    }
 
 
   });
