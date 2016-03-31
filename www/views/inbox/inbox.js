@@ -3,7 +3,9 @@
  */
 angular.module("starter")
 
-  .controller('inboxController', function ($scope, $firebaseArray, universalService, usersService, $stateParams, $rootScope, $ionicScrollDelegate) {
+  .controller('inboxController', function ($scope, $firebaseArray,
+                                           universalService, usersService, $stateParams,
+                                           $rootScope, $ionicScrollDelegate, $ionicHistory) {
 
 
     $scope.recipientUid = $stateParams.recipientUid;
@@ -98,7 +100,11 @@ angular.module("starter")
 
     $scope.messageList = $firebaseArray($scope.inboxMessagesRef);
     $scope.inboxMessagesRef.on("child_added", function () {
-      $ionicScrollDelegate.scrollBottom();
+      if($ionicHistory.currentView().stateName == "inbox"){
+        console.log($ionicHistory.currentView());
+        $ionicScrollDelegate.scrollBottom();
+      }
+
     });
 
 
