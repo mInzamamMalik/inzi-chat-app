@@ -1,0 +1,43 @@
+{
+
+  "usersProfile" : {
+
+    "userId" : {
+      "name" : "inzi"
+    }
+
+  },
+
+
+  "inbox" : {
+    "userId":{
+      "fromUid":{
+        "toUid":{
+          //Message Content
+        }
+       }
+
+    }
+  },
+
+
+  "loggedInUsers" : {
+
+    "userId" : {
+      "status" : false,
+      "lastActive" : 2345343455,
+      "geoPosition" : {
+        "latitude" : 24.43434,
+        "longitude" : 72.24566666
+      }
+    }
+
+  }
+
+
+
+
+
+
+
+}
