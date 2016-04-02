@@ -1,43 +1,40 @@
 {
+  "usersProfile": {
+  "userId": {
+    "name": "inzi",
+    "gender": "male",
 
-  "usersProfile" : {
+    "joined": 232343252345,
+    "expires" : 23343552342,
+    "lastActive": 2345343455,
 
-    "userId" : {
-      "name" : "inzi"
+    "profileImgUrl": "https://scontent.xx.fbcdn.net/hprofile-xat1/v/t1.0-1/s100x100/12191433_902892789779495_5649410334062740494_n.jpg?oh=1adb64c012b6ed8684229c480cf8cc65&oe=577F25EE",
+    "uid" : "facebook:966447266757380",
+    "loggedIn" : true,
+    "geoPosition": {
+      "latitude": 24.43434,
+      "longitude": 72.24566666
     }
+  }
+},
 
-  },
+
+"notifications" : {
+  "Uid" : {
+    "uid" : {
+      "mewMessages" : 4
+    }
+  }
+},
 
 
-  "inbox" : {
-    "userId":{
-      "fromUid":{
-        "toUid":{
+  "inbox": {
+    "userId": {
+      "fromUid": {
+        "toUid": {
           //Message Content
         }
-       }
-
-    }
-  },
-
-
-  "loggedInUsers" : {
-
-    "userId" : {
-      "status" : false,
-      "lastActive" : 2345343455,
-      "geoPosition" : {
-        "latitude" : 24.43434,
-        "longitude" : 72.24566666
       }
     }
-
   }
-
-
-
-
-
-
-
 }

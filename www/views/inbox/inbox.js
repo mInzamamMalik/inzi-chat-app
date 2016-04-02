@@ -11,20 +11,40 @@ angular.module("starter")
     $scope.recipientUid = $stateParams.recipientUid;
     $scope.myUid = usersService.myUid();
 
-    $scope.myMessageRef = $rootScope.ref.child($scope.myUid).child("inbox").child($scope.recipientUid);
-    $scope.recepientMessageRef = $rootScope.ref.child($scope.recipientUid).child("inbox").child($scope.myUid);
+    $scope.myMessageRef = $rootScope.ref.child("inbox").child($scope.myUid).child($scope.recipientUid);
+    $scope.recepientMessageRef = $rootScope.ref.child("inbox").child($scope.recipientUid).child($scope.myUid);
 
-    var notificationRef = $rootScope.ref.child($scope.myUid).child("notification/newMessages").child($scope.recipientUid);
+    var recipientNotificationRef = $rootScope.ref.child("notifications").child($scope.recipientUid).child($scope.myUid).child("newMessages");
+    var myNotificationRef = $rootScope.ref.child("notifications").child($scope.myUid).child($scope.recipientUid).child("newMessages");
 
-    var makeNotificationNull = function(){
-      notificationRef.set(null);
+    //clear my notifications for me
+    var makeNotificationNull = function () {
+      myNotificationRef.set(null);
       console.log("removed");
     };
     makeNotificationNull();
 
+    //increment one in recipient notification
+    var notificationInc = function () {
+
+      //var notificationRef = $rootScope.ref.child($scope.recipientUid).child("notification/newMessages").child($scope.myUid);
+      var notificationcount = null;
+
+      recipientNotificationRef.once("value", function (snapshot) {
+        notificationcount = snapshot.val();
+
+        //null from firebase on no previous data is handled by if statment
+        if (notificationcount) notificationcount++;
+        else notificationcount = 1;
+
+        //then save this notification value to firabase
+        recipientNotificationRef.set(notificationcount);
+      });
+    };
+
 
     ///////////////////////////////////////////////////////////////
-    var recepientProfileRef = $rootScope.ref.child($scope.recipientUid);
+    var recepientProfileRef = $rootScope.ref.child("userProfiles").child($scope.recipientUid);
     recepientProfileRef.once("value", function (snap) {
       $scope.recepientProfile = snap.val();
       //console.log($scope.recepientProfile);
@@ -33,7 +53,7 @@ angular.module("starter")
     ///////////////////////////////////////////////////////////////
 
     ///////////////////////////////////////////////////////////////
-    var myProfileRef = $rootScope.ref.child($scope.myUid);
+    var myProfileRef = $rootScope.ref.child("userProfiles").child($scope.myUid);
     myProfileRef.once("value", function (snap) {
       $scope.myProfile = snap.val();
       //console.log($scope.myProfile);
@@ -46,108 +66,69 @@ angular.module("starter")
     console.log("my uid:", $scope.myUid);
 
 
-
-
-
 //////////////////send message started///////////////////////////////////////////////////////////////////////////////
-    $scope.sendMessage = function () {
+    $scope.sendMessage = function (image) {
 
       makeNotificationNull();
 
       $scope.myMessageRef.push().set({
         from: $scope.myUid,
         to: $scope.recipientUid,
-        text: $scope.messageText,
+        text: $scope.messageText || null,
         timeStamp: Firebase.ServerValue.TIMESTAMP
       });
       $scope.recepientMessageRef.push().set({
         from: $scope.myUid,
         to: $scope.recipientUid,
-        text: $scope.messageText,
+        text: $scope.messageText || null,
+        image: image || null,
         timeStamp: Firebase.ServerValue.TIMESTAMP
 
+      }, function(error) {
+
+          if (error) {
+            //alert("Data could not be saved." + error);
+          } else {
+            //alert("Data saved successfully.");
+            notificationInc();
+            $scope.messageText = "";
+          }
+
       });
 
-      ///////////////////////////////////////////////////////////////////////////////////////
-      var notificationRef = $rootScope.ref.child($scope.recipientUid).child("notification/newMessages").child($scope.myUid);
-      var notificationcount = null;
 
-      notificationRef.once("value", function (snapshot) {
-
-        notificationcount = snapshot.val();
-        //console.log("noti", notificationcount);
-        //increment one
-        //null from firebase on no previous data is handled by if statment
-        if (notificationcount) notificationcount++;
-        else notificationcount = 1;
-
-        //then save this notification value to firabase
-        notificationRef.set(notificationcount);
-      });
-      ////////////////////////////////////////////////////////////////////////////////////
-
-      $scope.messageText = "";
 
     };
 //////////////////send message ended///////////////////////////////////////////////////////////////////////////////
 
 
+    $scope.inboxMessagesRef = $rootScope.ref.child("inbox").child($scope.myUid).child($scope.recipientUid);
 
-
-
-
-    $scope.inboxMessagesRef = $rootScope.ref.child($scope.myUid).child("inbox").child($scope.recipientUid);
-
-    $scope.messageList = $firebaseArray($scope.inboxMessagesRef);
+    $scope.messageList = $firebaseArray($scope.inboxMessagesRef.limitToLast(100));
     $scope.inboxMessagesRef.on("child_added", function () {
-      if($ionicHistory.currentView().stateName == "inbox"){
+      if ($ionicHistory.currentView().stateName == "inbox") {
         console.log($ionicHistory.currentView());
         $ionicScrollDelegate.scrollBottom();
       }
 
     });
 
-
+    //this function will click on browse button which is hidden in UI
     $scope.uploadImage = function () {
-      console.log("sdf");
-
       document.getElementById("file-input").addEventListener('change', uploadImageToFirebase, false);
       document.getElementById("file-input").click();
-    }
+    };
 
+    //this function will start image uploading to firebase instantly
     function uploadImageToFirebase(event) {
       var filename = event.target.files[0];
       var fr = new FileReader();
-
       fr.readAsDataURL(filename);
-
-
       fr.onload = function (res) {
 
         //ImgObj.image = res.target.result;
+        $scope.sendMessage(res.target.result);
 
-        $scope.myMessageRef.push().set({
-            from: $scope.myUid,
-            to: $scope.recipientUid,
-            //text: $scope.messageText,
-            image: res.target.result,
-            timeStamp: Firebase.ServerValue.TIMESTAMP
-          })
-
-          .then(function (val) {
-
-            $scope.recepientMessageRef.push().set({
-              from: $scope.myUid,
-              to: $scope.recipientUid,
-              //text: $scope.messageText,
-              image: res.target.result,
-              timeStamp: Firebase.ServerValue.TIMESTAMP
-            })
-
-
-          }, function (error) {
-            console.log("ERROR", error);
-          })
       };
 
 

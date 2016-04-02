@@ -24,7 +24,7 @@ angular.module('starter')
 
           console.log("Authenticated successfully with payload:", authData);
 
-          vm.currentRef = $rootScope.ref.child(authData.uid);
+          vm.currentRef = $rootScope.ref.child("userProfiles").child(authData.uid);
 
           vm.currentRef.update({
             name: authData.facebook.displayName,
@@ -61,7 +61,7 @@ angular.module('starter')
 
           console.log("Authenticated successfully with payload:", authData);
 
-          vm.currentRef = $rootScope.ref.child(authData.uid);
+          vm.currentRef = $rootScope.ref.child("userProfiles").child(authData.uid);
 
           vm.currentRef.update({
             name: authData.twitter.displayName,
@@ -98,7 +98,7 @@ angular.module('starter')
 
           console.log("Authenticated successfully with payload:", authData);
 
-          vm.currentRef = $rootScope.ref.child(authData.uid);
+          vm.currentRef = $rootScope.ref.child("userProfiles").child(authData.uid);
 
           vm.currentRef.update({
             name: authData.google.displayName,
@@ -131,9 +131,16 @@ angular.module('starter')
         console.log("authChanged: User " + authData.uid + " is logged in with " + authData.provider);
 
         //make user online
-        $rootScope.ref.child(authData.uid).child("loggedIn").onDisconnect().set(false);
-        $rootScope.ref.child(authData.uid).child("loggedIn").set(true);
 
+        $rootScope.ref.child("userProfiles").child(authData.uid).child("loggedIn").onDisconnect().update({
+          status : false,
+          lastActive : Firebase.ServerValue.TIMESTAMP
+        });
+        $rootScope.ref.child("userProfiles").child(authData.uid).child("loggedIn").update({
+          status : true
+        });
+
+        //start watching his location
         locationService.startWatchingMyGeoPosition();
 
         //console.log("current view is:",$ionicHistory.currentView());
@@ -147,13 +154,19 @@ angular.module('starter')
         console.log("User is logged out");
         $state.go("home");
         //notificationService.showAlert("please login again", "its look like your session is expired")
+        if($ionicHistory.currentView().stateName != "home"){
+
+          notificationService.showAlert("please login again", "its look like you are not logged in or your session is expired");
+          $state.go("home");
+
+        }
 
       }
     }
 
     vm.logout = function () {
       $rootScope.ref.offAuth(authDataCallback);
-      $rootScope.ref.child(vm.authData.uid).update({loggedIn: false});
+      $rootScope.ref.child("userProfiles").child(vm.authData.uid).child("loggedIn").update({status: false});
       $rootScope.ref.unauth();
       $state.go("home");
       notificationService.showAlert("Thankyou for using :-)", "hope you experienced well");

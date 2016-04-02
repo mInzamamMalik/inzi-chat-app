@@ -4,7 +4,7 @@
     <button class="button button-balanced" ng-click="logout()">logout</button>
   </ion-nav-buttons>
 
-  <ion-content overflow-scroll="false" >
+  <ion-content overflow-scroll="false">
     <div class="list card" style="overflow: visible">
 
       <div class="item item-avatar">
@@ -34,13 +34,13 @@
           Message From <a href="http://facebook.com/malikasinger">Inzamam</a>: <br><br>
           Welcome to the App guys hit Like and Share with your friends<br>
           very soon i'll release build for your Android and iOS phones<br><br>
-          if you notice bug or you have a suggestion you can<br>  <a href="mailto:malikasinger@gmail.com">report here</a>
+          if you notice bug or you have a suggestion you can<br> <a href="mailto:malikasinger@gmail.com">report here</a>
         </p>
 
         <p>
 
-        <!--<a href="#" class="subdued">1 Like</a>-->
-        <!--<a href="#" class="subdued">5 Comments</a>-->
+          <!--<a href="#" class="subdued">1 Like</a>-->
+          <!--<a href="#" class="subdued">5 Comments</a>-->
         </p>
       </div>
 
@@ -72,7 +72,6 @@
         </ion-option-button>
       </ion-item>
 
-
     </ion-list>
 
 
@@ -91,7 +90,10 @@
 
         <h2>{{user.name}}</h2>
 
-        <p style="color: green" ng-show="user.loggedIn">online</p>
+        <p style="color: green" ng-show="user.loggedIn.status">online </p>
+
+        <p style="color: rgba(0, 0, 0, 0.4)" ng-show="!user.loggedIn.status"
+           ng-bind="user.loggedIn.lastActive | date : 'MMM d, h:mm a'"></p>
         <i class="icon ion-chevron-right icon-accessory"></i>
 
         <ion-option-button class="button-assertive" ng-click="remove(user)">

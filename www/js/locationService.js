@@ -11,7 +11,7 @@ angular.module('starter')
     this.startWatchingMyGeoPosition = function () {
       navigator.geolocation.watchPosition(function (position) {
 
-        $rootScope.ref.child(usersService.myUid()).child("geoPosition").update({
+        $rootScope.ref.child("userProfiles").child(usersService.myUid()).child("geoPosition").update({
           latitude: position.coords.latitude,
           longitude: position.coords.longitude
         });
