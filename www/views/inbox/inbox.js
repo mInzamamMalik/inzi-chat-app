@@ -75,6 +75,7 @@ angular.module("starter")
         from: $scope.myUid,
         to: $scope.recipientUid,
         text: $scope.messageText || null,
+        image: image || null,
         timeStamp: Firebase.ServerValue.TIMESTAMP
       });
       $scope.recepientMessageRef.push().set({
