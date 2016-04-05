@@ -80,7 +80,7 @@
 
 
       <ion-item class="item-remove-animate item-avatar item-icon-right"
-                ng-repeat="user in userlist | orderBy:  ['-loggedIn','-expires'] "
+                ng-repeat="user in userlist | orderBy:  ['-loggedIn.status','-loggedIn.lastActive'] "
                 ng-hide=""
                 type="item-text-wrap"
                 href="#/inbox{{user.uid}}">
