@@ -133,7 +133,7 @@ angular.module('starter')
         //make user online
 
         $rootScope.ref.child("userProfiles").child(authData.uid).child("loggedIn").onDisconnect().update({
-          status : false,
+          status : null,
           lastActive : Firebase.ServerValue.TIMESTAMP
         });
         $rootScope.ref.child("userProfiles").child(authData.uid).child("loggedIn").update({
@@ -166,7 +166,7 @@ angular.module('starter')
 
     vm.logout = function () {
       $rootScope.ref.offAuth(authDataCallback);
-      $rootScope.ref.child("userProfiles").child(vm.authData.uid).child("loggedIn").update({status: false});
+      $rootScope.ref.child("userProfiles").child(vm.authData.uid).child("loggedIn").update({status: null});
       $rootScope.ref.unauth();
       $state.go("home");
       notificationService.showAlert("Thankyou for using :-)", "hope you experienced well");
