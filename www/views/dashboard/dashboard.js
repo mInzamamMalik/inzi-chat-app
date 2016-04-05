@@ -19,6 +19,8 @@ angular.module("starter")
       $scope.userlist = [];
 
       $rootScope.ref.child("userProfiles").on("child_added", function (snapShot) {
+
+        //$rootScope.ref.child("userProfiles").child(snapShot.key()).child("loggedIn").update({ status : null});
         $scope.userlist.push(snapShot.val());
         $scope.$apply();
       });

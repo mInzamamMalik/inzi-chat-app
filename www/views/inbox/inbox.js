@@ -92,12 +92,11 @@ angular.module("starter")
           } else {
             //alert("Data saved successfully.");
             notificationInc();
-            $scope.messageText = "";
           }
 
       });
 
-
+      $scope.messageText = "";
 
     };
 //////////////////send message ended///////////////////////////////////////////////////////////////////////////////
