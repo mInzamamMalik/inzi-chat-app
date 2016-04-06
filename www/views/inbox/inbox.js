@@ -104,7 +104,7 @@ angular.module("starter")
 
     $scope.inboxMessagesRef = $rootScope.ref.child("inbox").child($scope.myUid).child($scope.recipientUid);
 
-    $scope.messageList = $firebaseArray($scope.inboxMessagesRef.limitToLast(100));
+    $scope.messageList = $firebaseArray($scope.inboxMessagesRef.limitToLast(10));
     $scope.inboxMessagesRef.on("child_added", function () {
       if ($ionicHistory.currentView().stateName == "inbox") {
         console.log($ionicHistory.currentView());
