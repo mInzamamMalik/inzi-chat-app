@@ -1,4 +1,4 @@
-<ion-view	view-title="Inzi Chat App">
+<ion-view view-title="Inzi Chat App">
 
   <ion-nav-buttons side="primary">
 
@@ -7,19 +7,30 @@
   <ion-content>
 
     <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-
-    <button class="button button-positive button-full" ng-click="authWithFacebook()">login with facebook</button>
-    <button class="button button-positive button-full" ng-click="authWithTwitter()">login with twitter</button>
-    <button class="button button-positive button-full" ng-click="authWithGoogle()">login with google</button>
 
 
+    <div align="center" class="">
+      <img src="../../img/12920301_1000628430017988_8621195920991745508_n.jpg" alt="" width="200px" class="circle"><br>
+      <p class="lowOpacity">Inzi Chat App is an Awesome Chat App</p>
+    </div>
+    <br>
 
+    <div class="row padding">
+
+      <button class="button button-positive  col col-33 " ng-click="authWithFacebook()">
+        <i class="icon ion-social-facebook"></i>
+        Facebook
+      </button>
+
+      <button class="button button-calm  col col-33 " ng-click="authWithTwitter()">
+        <i class="icon ion-social-twitter"></i>
+        Twitter
+      </button>
+
+      <button class="button button-assertive col col-33 " ng-click="authWithGoogle()">
+        <i class="icon ion-social-google"></i>Google
+      </button>
+    </div>
 
 
   </ion-content>
