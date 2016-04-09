@@ -3,7 +3,7 @@
  */
 angular.module("starter")
 
-  .controller('inboxController', function ($scope, $firebaseArray,
+  .controller('inboxController', function ($scope, $firebaseArray,notificationService,
                                            universalService, usersService, $stateParams,
                                            $rootScope, $ionicScrollDelegate, $ionicHistory) {
 
@@ -100,6 +100,17 @@ angular.module("starter")
 
     };
 //////////////////send message ended///////////////////////////////////////////////////////////////////////////////
+
+    //////////////clear chat/////////////////////////////////////////////
+    $scope.clearChat= function(){
+      notificationService.showConfirm("Are You Sure??","do you really want to delete all chat histroy? <br /> you can also drag a message to left for single delete",function(){
+        //on true
+        $scope.recepientMessageRef.set(null);
+      },function(){
+        //on false
+      })
+    }
+    //////////////clear chat/////////////////////////////////////////////
 
 
     $scope.inboxMessagesRef = $rootScope.ref.child("inbox").child($scope.myUid).child($scope.recipientUid);
