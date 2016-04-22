@@ -27,11 +27,11 @@ angular.module('starter')
           vm.currentRef = $rootScope.ref.child("userProfiles").child(authData.uid);
 
           vm.currentRef.update({
-            name: authData.facebook.displayName,
-            gender: authData.facebook.cachedUserProfile.gender,
-            profileImageURL: authData.facebook.profileImageURL,
-            expires: authData.expires,
-            uid: authData.uid
+            name: authData.facebook.displayName  || null ,
+            gender: authData.facebook.cachedUserProfile.gender || null,
+            profileImageURL: authData.facebook.profileImageURL || null,
+            expires: authData.expires || null,
+            uid: authData.uid || null
           });
 
           vm.currentRef.on("value", function (snap) {
@@ -39,7 +39,7 @@ angular.module('starter')
 
             if (!data.joined) {
               vm.currentRef.update({
-                joined: Firebase.ServerValue.TIMESTAMP
+                joined: Firebase.ServerValue.TIMESTAMP || null
               });
             }
           });
@@ -66,9 +66,9 @@ angular.module('starter')
           vm.currentRef.update({
             name: authData.twitter.displayName,
             //gender: authData.facebook.cachedUserProfile.gender,
-            profileImageURL: authData.twitter.profileImageURL,
-            expires: authData.expires,
-            uid: authData.uid
+            profileImageURL: authData.twitter.profileImageURL  || null,
+            expires: authData.expires  || null,
+            uid: authData.uid  || null
           });
 
           vm.currentRef.on("value", function (snap) {
@@ -103,9 +103,9 @@ angular.module('starter')
           vm.currentRef.update({
             name: authData.google.displayName,
             // gender: authData.google.cachedUserProfile.gender,
-            profileImageURL: authData.google.profileImageURL,
-            expires: authData.expires,
-            uid: authData.uid
+            profileImageURL: authData.google.profileImageURL  || null,
+            expires: authData.expires  || null,
+            uid: authData.uid  || null
           });
 
           vm.currentRef.on("value", function (snap) {
