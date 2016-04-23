@@ -106,7 +106,7 @@ angular.module("starter")
      if(!$scope.messageList.length)return;
       notificationService.showConfirm("Are You Sure??","do you really want to delete all chat histroy? <br /> you can also drag a message to left for single delete",function(){
         //on true
-        $scope.recepientMessageRef.set(null);
+        $rootScope.ref.child("inbox").child($scope.myUid).child($scope.recipientUid).set(null);
       },function(){
         //on false
       })
