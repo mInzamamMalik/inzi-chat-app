@@ -11,8 +11,18 @@
       <!--<ion-item class="item-divider" >from a person</ion-item>-->
 
       <ion-item class="positive" ng-if="messageLoaded && messageList.length != 0" align="center"
-                ng-click="moreMessages()">
+      ng-click="moreMessages()">
         See More
+      </ion-item>
+
+      <ion-item align="center" ng-if="messageLoaded && messageList.length == 0">
+        No Messages
+      </ion-item>
+
+      <ion-item align="center" ng-if="!messageLoaded">
+        <ion-spinner icon="lines" class=" col-100" align="center"></ion-spinner>
+        <ion-spinner icon="lines" class=" col-100" align="center"></ion-spinner>
+        <ion-spinner icon="lines" class=" col-100" align="center"></ion-spinner>
       </ion-item>
 
 
@@ -62,13 +72,6 @@
       </span>
 
 
-      <ion-item align="center" ng-if="messageLoaded && messageList.length == 0">
-        No Messages
-      </ion-item>
-
-      <ion-item align="center" ng-if="!messageLoaded">
-        <ion-spinner class="col-100" align="center"></ion-spinner>
-      </ion-item>
 
       <ion-item class="item opacity-hide"></ion-item>
 
