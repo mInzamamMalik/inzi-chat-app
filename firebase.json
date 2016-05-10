@@ -1,6 +1,7 @@
 {
   "firebase": "inzi-chat-app",
-  "public": "www",
+  //"public": "www",// if you want to deploy only rules comment this line
+  "rules": "www/security-rules/security-rules.json",
   "ignore": [
     "firebase.json",
     "**/.*",
