@@ -1,6 +1,6 @@
 <ion-view view-title="{{recepientProfile.name}}">
 
-  <ion-nav-buttons  side="right">
+  <ion-nav-buttons side="right">
     <button class="button button-light" ng-click="clearChat()">
       <div class="assertive">Clear Chat</div>
     </button>
@@ -10,6 +10,22 @@
     <ion-list>
       <!--<ion-item class="item-divider" >from a person</ion-item>-->
 
+      <ion-item class="positive" ng-if="messageLoaded && messageList.length != 0" align="center"
+      ng-click="moreMessages()">
+        See More
+      </ion-item>
+
+      <ion-item align="center" ng-if="messageLoaded && messageList.length == 0">
+        No Messages
+      </ion-item>
+
+      <ion-item align="center" ng-if="!messageLoaded">
+        <ion-spinner icon="lines" class=" col-100" align="center"></ion-spinner>
+        <ion-spinner icon="lines" class=" col-100" align="center"></ion-spinner>
+        <ion-spinner icon="lines" class=" col-100" align="center"></ion-spinner>
+      </ion-item>
+
+
       <span ng-repeat="message in messageList">
         <!--//////////////////////////////////////////////////////////////////////////////////////////////////////////-->
 
@@ -18,10 +34,10 @@
 
           <img ng-src="{{recepientProfile.profileImageURL}}">
 
-          <p class="lowOpacity" >{{message.timeStamp | date:'yyyy-MM-dd HH:mm'}}</p>
+          <p class="lowOpacity">{{message.timeStamp | date:'yyyy-MM-dd HH:mm'}}</p>
           <!--<p>{{message.timeStamp | date:'yyyy-MM-dd HH:mm:ss Z'}}</p>-->
 
-          <span >{{message.text}}</span>
+          <span>{{message.text}}</span>
 
           <img ng-if="message.image" ng-src="{{message.image}}" width="80%" alt="">
 
@@ -41,7 +57,7 @@
           <p class="lowOpacity">{{message.timeStamp | date:'yyyy-MM-dd HH:mm'}}</p>
           <!--<p>{{message.timeStamp | date:'yyyy-MM-dd HH:mm:ss Z'}}</p>-->
 
-          <span >{{message.text}}</span>
+          <span>{{message.text}}</span>
 
           <img ng-if="message.image" ng-src="{{message.image}}" width="80%" alt="">
 
@@ -56,9 +72,8 @@
       </span>
 
 
-      <ion-item class="item opacity-hide">
 
-      </ion-item>
+      <ion-item class="item opacity-hide"></ion-item>
 
 
     </ion-list>
@@ -72,7 +87,7 @@
       <input required type="text" class="item-input col item-input-wrapper" ng-model="messageText">
     </div>
     <div>
-      <div class="button button-positive" ng-click="uploadImage()"> <i class="icon ion-camera"></i> </div>
+      <div class="button button-positive" ng-click="uploadImage()"><i class="icon ion-camera"></i></div>
       <button class="button button-positive" type="submit">Send</button>
     </div>
   </form>

@@ -1,0 +1,80 @@
+////////////this is message schema///////////////////////////////////////////////////
+//{"rules":{".read":"auth != null"}}
+type Message{
+	from : String | Null,
+	text : String | Null,
+	image : String | Null,
+	timeStamp : Number | Null,
+	to : String | Null
+}
+
+path /inbox/{$ownerUserId}/{$senderUserId}/{$message} is Message{
+	
+	write(){ auth != null }
+	validate(){ this.from === auth.uid }
+}
+path /inbox/{$ownerUserId}/{$senderUserId} {
+	read() { auth!=null && $ownerUserId === auth.uid}
+	write() { auth!=null && $ownerUserId === auth.uid}
+}
+////////////this is message schema///////////////////////////////////////////////////
+
+
+
+////////////this is Notification schema///////////////////////////////////////////////////
+
+type Notification{
+	newMessage : Number | Null
+}
+
+path /notifications {
+
+	read() { true }
+	write(){ true }
+
+}
+//path /notifications/{$ownerUserId}/{$senderUserId} is Notification{
+
+//	read() { auth != null && $ownerUserId === auth.uid}
+//	write(){ auth != null }
+
+//}
+////////////this is Notification schema///////////////////////////////////////////////////
+
+
+
+
+////////////this is message schema///////////////////////////////////////////////////
+
+type GeoPosition {
+	latitude : Number,
+	longitude : Number
+}
+
+type LoggedIn{
+	status: Boolean | Null,
+	lastActive : Number | Null
+
+}
+
+type Profile{
+	name : String | Null,
+	uid : String | Null,
+	gender : String | Null,
+	joined : Number | Null,
+	expires : Number | Null,
+	profileImageURL : String | Null,
+	geoPosition : GeoPosition | Null,
+	loggedIn : LoggedIn | Null
+}
+
+path /userProfiles/{$UserId} is Profile{
+
+	read() { auth!= null}
+	write(){ auth != null && $UserId === auth.uid}
+}
+
+path /userProfiles {
+	read() { auth!= null}
+}
+////////////this is message schema///////////////////////////////////////////////////

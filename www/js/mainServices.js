@@ -34,7 +34,7 @@ angular.module('starter')
             uid: authData.uid || null
           });
 
-          vm.currentRef.on("value", function (snap) {
+          vm.currentRef.once("value", function (snap) {
             data = snap.val();
 
             if (!data.joined) {

@@ -1,0 +1,91 @@
+{
+  "rules": {
+    "inbox": {
+      "$ownerUserId": {
+        "$senderUserId": {
+          "$message": {
+            ".validate": "newData.hasChildren() && newData.child('from').val() == auth.uid",
+            "from": {
+              ".validate": "newData.isString() || newData.val() == null"
+            },
+            "text": {
+              ".validate": "newData.isString() || newData.val() == null"
+            },
+            "image": {
+              ".validate": "newData.isString() || newData.val() == null"
+            },
+            "timeStamp": {
+              ".validate": "newData.isNumber() || newData.val() == null"
+            },
+            "to": {
+              ".validate": "newData.isString() || newData.val() == null"
+            },
+            "$other": {
+              ".validate": "false"
+            },
+            ".write": "auth != null"
+          },
+          ".read": "auth != null && $ownerUserId == auth.uid",
+          ".write": "auth != null && $ownerUserId == auth.uid"
+        }
+      }
+    },
+    "notifications": {
+      ".read": "true",
+      ".write": "true"
+    },
+    "userProfiles": {
+      "$UserId": {
+        ".validate": "newData.hasChildren()",
+        "name": {
+          ".validate": "newData.isString() || newData.val() == null"
+        },
+        "uid": {
+          ".validate": "newData.isString() || newData.val() == null"
+        },
+        "gender": {
+          ".validate": "newData.isString() || newData.val() == null"
+        },
+        "joined": {
+          ".validate": "newData.isNumber() || newData.val() == null"
+        },
+        "expires": {
+          ".validate": "newData.isNumber() || newData.val() == null"
+        },
+        "profileImageURL": {
+          ".validate": "newData.isString() || newData.val() == null"
+        },
+        "geoPosition": {
+          ".validate": "newData.hasChildren() && newData.hasChildren(['latitude', 'longitude']) || newData.val() == null",
+          "latitude": {
+            ".validate": "newData.isNumber()"
+          },
+          "longitude": {
+            ".validate": "newData.isNumber()"
+          },
+          "$other": {
+            ".validate": "false"
+          }
+        },
+        "loggedIn": {
+          ".validate": "newData.hasChildren() || newData.val() == null",
+          "status": {
+            ".validate": "newData.isBoolean() || newData.val() == null"
+          },
+          "lastActive": {
+            ".validate": "newData.isNumber() || newData.val() == null"
+          },
+          "$other": {
+            ".validate": "false"
+          }
+        },
+        "$other": {
+          ".validate": "false"
+        },
+        ".read": "auth != null",
+        ".write": "auth != null && $UserId == auth.uid"
+      },
+      ".read": "auth != null"
+    }
+  }
+}
