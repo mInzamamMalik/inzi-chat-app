@@ -1,0 +1,33 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "{10f87fe0-2a20-11e6-beee-cb6718debffc}"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "{10f87fe0-2a20-11e6-beee-cb6718debffc}"
+        },
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "{10f87fe0-2a20-11e6-beee-cb6718debffc}"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "{10f87fe0-2a20-11e6-beee-cb6718debffc}"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "{10f87fe0-2a20-11e6-beee-cb6718debffc}"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "{10f87fe0-2a20-11e6-beee-cb6718debffc}"
+        },
+        "ionic-plugin-keyboard": {
+            "PACKAGE_NAME": "{10f87fe0-2a20-11e6-beee-cb6718debffc}"
+        }
+    },
+    "dependent_plugins": {}
+}
