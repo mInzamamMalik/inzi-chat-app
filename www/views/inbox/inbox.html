@@ -81,9 +81,9 @@
   </ion-content>
 
 
-  <div class="card" style="position: absolute; bottom: 40px">
+  <div class="card" style="position: absolute; bottom: 40px" ng-show="showCard">
     <div class="row">
-      <div class="col col">&#x1F601</div>
+      <div class="col col" ng-click="pickThisEcomotion($event)">&#x1F601</div>
       <div class="col col">&#x1F602</div>
       <div class="col col">&#x1F603</div>
       <div class="col col">&#x1F604</div>
@@ -167,7 +167,9 @@
 
 
   <form class="bar bar-footer row" ng-submit="sendMessage( )">
-
+    <div>
+      <div class="button button-positive" ng-click="showCard = !showCard"><i class="icon ion-happy-outline"></i></div>
+    </div>
     <div class="item-input-wrapper">
       <input required type="text" class="item-input col item-input-wrapper" ng-model="messageText">
     </div>
