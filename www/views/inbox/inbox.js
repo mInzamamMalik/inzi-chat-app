@@ -10,6 +10,7 @@ angular.module("starter")
 
     $scope.recipientUid = $stateParams.recipientUid;
     $scope.myUid = usersService.myUid();
+    $scope.messageText = "";
 
     $scope.myMessageRef = $rootScope.ref.child("inbox").child($scope.myUid).child($scope.recipientUid);
     $scope.recepientMessageRef = $rootScope.ref.child("inbox").child($scope.recipientUid).child($scope.myUid);
@@ -159,6 +160,15 @@ angular.module("starter")
         //ImgObj.image = res.target.result;
         $scope.sendMessage(res.target.result);
       };
+    }
+
+
+    $scope.pickThisEcomotion = function($event){
+      console.log($event.target.farthestViewportElement.nextElementSibling.innerText);
+
+      $scope.messageText +=$event.target.farthestViewportElement.nextElementSibling.innerText;
+
+
     }
 
 
