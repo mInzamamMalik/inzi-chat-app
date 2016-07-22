@@ -71,33 +71,46 @@ angular.module("starter")
     $scope.sendMessage = function (image) {
 
       makeNotificationNull();
+      //$scope.myMessageRef = $rootScope.ref.child("inbox")
+      // .child($scope.myUid).child($scope.recipientUid);
 
-      $scope.myMessageRef.push().set({
+      //$scope.recepientMessageRef = $rootScope.ref.child("inbox")
+      // .child($scope.recipientUid).child($scope.myUid);
+
+      var data = {
         from: $scope.myUid,
         to: $scope.recipientUid,
         text: $scope.messageText || null,
         image: image || null,
         timeStamp: Firebase.ServerValue.TIMESTAMP
-      });
-      $scope.recepientMessageRef.push().set({
-        from: $scope.myUid,
-        to: $scope.recipientUid,
-        text: $scope.messageText || null,
-        image: image || null,
-        timeStamp: Firebase.ServerValue.TIMESTAMP
+      };
 
-      }, function (error) {
+
+      //make keys for both nodes by .push() and get key by.key()
+      //and save in a variable for use later
+      var myMessageRefPushId =  $scope.myMessageRef.push().key();
+      var recepientMessageRefPushId = $scope.recepientMessageRef.push().key();
+
+      //create a empty object
+      var updatedData = {};
+
+      //populate empty object with your details
+      updatedData[ $scope.myUid +"/"+ $scope.recipientUid + "/" + myMessageRefPushId] = data;
+      updatedData[ $scope.recipientUid + "/" + $scope.myUid + "/" + recepientMessageRefPushId] = data;
+
+      //update
+      $rootScope.ref.child("inbox").update(updatedData, function (error) {
 
         if (error) {
           //alert("Data could not be saved." + error);
+
         } else {
           //alert("Data saved successfully.");
           notificationInc();
+          $scope.messageText = "";
         }
-
       });
 
-      $scope.messageText = "";
 
     };
 //////////////////send message ended///////////////////////////////////////////////////////////////////////////////
