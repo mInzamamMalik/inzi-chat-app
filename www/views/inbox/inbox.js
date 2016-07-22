@@ -5,7 +5,8 @@ angular.module("starter")
 
   .controller('inboxController', function ($scope, $firebaseArray, notificationService,
                                            universalService, usersService, $stateParams,
-                                           $rootScope, $ionicScrollDelegate, $ionicHistory) {
+                                           $rootScope, $ionicScrollDelegate, $ionicHistory,
+                                           $timeout) {
 
 
     $scope.recipientUid = $stateParams.recipientUid;
@@ -70,7 +71,11 @@ angular.module("starter")
 //////////////////send message started///////////////////////////////////////////////////////////////////////////////
     $scope.sendMessage = function (image) {
 
-      $scope.sending = true;
+
+      var sendingPromise = $timeout(function(){
+        $scope.sending = true;
+        $ionicScrollDelegate.scrollBottom();
+      },500);
 
       makeNotificationNull();
       //$scope.myMessageRef = $rootScope.ref.child("inbox")
@@ -106,10 +111,13 @@ angular.module("starter")
 
         if (error) {
           //alert("Data could not be saved." + error);
+          $timeout.cancel(sendingPromise);
           $scope.sending = false;
+          alert("fail");
         } else {
           //alert("Data saved successfully.");
           notificationInc();
+          $timeout.cancel(sendingPromise);
           $scope.sending = false;
         }
       });
