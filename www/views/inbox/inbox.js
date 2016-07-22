@@ -70,6 +70,8 @@ angular.module("starter")
 //////////////////send message started///////////////////////////////////////////////////////////////////////////////
     $scope.sendMessage = function (image) {
 
+      $scope.sending = true;
+
       makeNotificationNull();
       //$scope.myMessageRef = $rootScope.ref.child("inbox")
       // .child($scope.myUid).child($scope.recipientUid);
@@ -85,6 +87,7 @@ angular.module("starter")
         timeStamp: Firebase.ServerValue.TIMESTAMP
       };
 
+      $scope.messageText = "";
 
       //make keys for both nodes by .push() and get key by.key()
       //and save in a variable for use later
@@ -103,11 +106,11 @@ angular.module("starter")
 
         if (error) {
           //alert("Data could not be saved." + error);
-
+          $scope.sending = false;
         } else {
           //alert("Data saved successfully.");
           notificationInc();
-          $scope.messageText = "";
+          $scope.sending = false;
         }
       });
 

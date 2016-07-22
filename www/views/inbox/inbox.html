@@ -10,22 +10,23 @@
     <ion-list>
       <!--<ion-item class="item-divider" >from a person</ion-item>-->
 
-      <ion-item class="positive" ng-if="messageLoaded && messageList.length != 0" align="center"
+      <!--see more button-->
+      <ion-item class="item-borderless positive" ng-if="messageLoaded && messageList.length != 0" align="center"
       ng-click="moreMessages()">
         See More
       </ion-item>
 
-      <ion-item align="center" ng-if="messageLoaded && messageList.length == 0">
+      <!--no messages indicator-->
+      <ion-item class="item-borderless" align="center" ng-if="messageLoaded && messageList.length == 0">
         No Messages
       </ion-item>
 
-      <ion-item align="center" ng-if="!messageLoaded">
-        <ion-spinner icon="lines" class=" col-100" align="center"></ion-spinner>
-        <ion-spinner icon="lines" class=" col-100" align="center"></ion-spinner>
+      <!--loading messages indicator-->
+      <ion-item class="item-borderless" align="center" ng-if="!messageLoaded">
         <ion-spinner icon="lines" class=" col-100" align="center"></ion-spinner>
       </ion-item>
 
-
+      <!--messages list-->
       <span ng-repeat="message in messageList">
         <!--//////////////////////////////////////////////////////////////////////////////////////////////////////////-->
 
@@ -71,8 +72,12 @@
 
       </span>
 
+      <!--sending indicator-->
+      <div align="center" ng-show="sending">
+        <ion-spinner class="item item-borderless" icon="ripple"></ion-spinner>
+      </div>
 
-
+      <!--empty item to keep list not to touch ground-->
       <ion-item class="item opacity-hide"></ion-item>
 
 
