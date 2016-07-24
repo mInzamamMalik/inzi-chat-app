@@ -27,6 +27,11 @@ angular.module('starter', ['ionic','firebase'])
         url: "/chatDetail",
         templateUrl: "views/chatDetail/chatDetail.html",
         controller: "chatDetailController"
+      })
+      .state("search", {
+        url: "/search",
+        templateUrl: "views/search/search.html",
+        controller: "searchController"
       });
 
     $urlRouterProvider.otherwise("/home");

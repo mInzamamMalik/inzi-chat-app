@@ -3,13 +3,15 @@
  */
 angular.module("starter")
 
-  .controller('inboxController', function ($scope, $firebaseArray,
+  .controller('inboxController', function ($scope, $firebaseArray, notificationService,
                                            universalService, usersService, $stateParams,
-                                           $rootScope, $ionicScrollDelegate, $ionicHistory) {
+                                           $rootScope, $ionicScrollDelegate, $ionicHistory,
+                                           $timeout) {
 
 
     $scope.recipientUid = $stateParams.recipientUid;
     $scope.myUid = usersService.myUid();
+    $scope.messageText = "";
 
     $scope.myMessageRef = $rootScope.ref.child("inbox").child($scope.myUid).child($scope.recipientUid);
     $scope.recepientMessageRef = $rootScope.ref.child("inbox").child($scope.recipientUid).child($scope.myUid);
@@ -69,49 +71,102 @@ angular.module("starter")
 //////////////////send message started///////////////////////////////////////////////////////////////////////////////
     $scope.sendMessage = function (image) {
 
+
+      var sendingPromise = $timeout(function(){
+        $scope.sending = true;
+        $ionicScrollDelegate.scrollBottom();
+      },500);
+
       makeNotificationNull();
+      //$scope.myMessageRef = $rootScope.ref.child("inbox")
+      // .child($scope.myUid).child($scope.recipientUid);
 
-      $scope.myMessageRef.push().set({
+      //$scope.recepientMessageRef = $rootScope.ref.child("inbox")
+      // .child($scope.recipientUid).child($scope.myUid);
+
+      var data = {
         from: $scope.myUid,
         to: $scope.recipientUid,
         text: $scope.messageText || null,
         image: image || null,
         timeStamp: Firebase.ServerValue.TIMESTAMP
-      });
-      $scope.recepientMessageRef.push().set({
-        from: $scope.myUid,
-        to: $scope.recipientUid,
-        text: $scope.messageText || null,
-        image: image || null,
-        timeStamp: Firebase.ServerValue.TIMESTAMP
-
-      }, function(error) {
-
-          if (error) {
-            //alert("Data could not be saved." + error);
-          } else {
-            //alert("Data saved successfully.");
-            notificationInc();
-          }
-
-      });
+      };
 
       $scope.messageText = "";
+
+      //make keys for both nodes by .push() and get key by.key()
+      //and save in a variable for use later
+      var myMessageRefPushId =  $scope.myMessageRef.push().key();
+      var recepientMessageRefPushId = $scope.recepientMessageRef.push().key();
+
+      //create a empty object
+      var updatedData = {};
+
+      //populate empty object with your details
+      updatedData[ $scope.myUid +"/"+ $scope.recipientUid + "/" + myMessageRefPushId] = data;
+      updatedData[ $scope.recipientUid + "/" + $scope.myUid + "/" + recepientMessageRefPushId] = data;
+
+      //update
+      $rootScope.ref.child("inbox").update(updatedData, function (error) {
+
+        if (error) {
+          //alert("Data could not be saved." + error);
+          $timeout.cancel(sendingPromise);
+          $scope.sending = false;
+          alert("fail");
+        } else {
+          //alert("Data saved successfully.");
+          notificationInc();
+          $timeout.cancel(sendingPromise);
+          $scope.sending = false;
+        }
+      });
+
 
     };
 //////////////////send message ended///////////////////////////////////////////////////////////////////////////////
 
+    //////////////clear chat/////////////////////////////////////////////
+    $scope.clearChat = function () {
+      if (!$scope.messageList.length)return;
+      notificationService.showConfirm("Are You Sure??", "do you really want to delete all chat histroy? <br /> you can also drag a message to left for single delete", function () {
+        //on true
+        $rootScope.ref.child("inbox").child($scope.myUid).child($scope.recipientUid).set(null);
+      }, function () {
+        //on false
+      })
+    };
+    //////////////clear chat/////////////////////////////////////////////
 
+
+///////////fetching messages////////////////////////////////////////////////////////////////////////////////////
     $scope.inboxMessagesRef = $rootScope.ref.child("inbox").child($scope.myUid).child($scope.recipientUid);
 
     $scope.messageList = $firebaseArray($scope.inboxMessagesRef.limitToLast(10));
+    $scope.messageList.$loaded()
+      .then(function (x) {
+        //console.log(x.length);
+        $scope.messageLoaded = true;
+      })
+      .catch(function (error) {
+        //console.log("Error:", error);
+      });
+
     $scope.inboxMessagesRef.on("child_added", function () {
       if ($ionicHistory.currentView().stateName == "inbox") {
-        console.log($ionicHistory.currentView());
+        //console.log($ionicHistory.currentView());
         $ionicScrollDelegate.scrollBottom();
       }
-
     });
+
+    var count = 10;
+    $scope.moreMessages = function () {
+      count += count;
+      $scope.messageList = $firebaseArray($scope.inboxMessagesRef.limitToLast(count));
+      //console.log("dfdf");
+    };
+///////////fetching messages////////////////////////////////////////////////////////////////////////////////////
+
 
     //this function will click on browse button which is hidden in UI
     $scope.uploadImage = function () {
@@ -128,8 +183,14 @@ angular.module("starter")
 
         //ImgObj.image = res.target.result;
         $scope.sendMessage(res.target.result);
-
       };
+    }
+
+
+    $scope.pickThisEcomotion = function($event){
+      console.log($event.target.farthestViewportElement.nextElementSibling.innerText);
+
+      $scope.messageText +=$event.target.farthestViewportElement.nextElementSibling.innerText;
 
 
     }
