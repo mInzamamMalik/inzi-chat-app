@@ -42,6 +42,19 @@ path /notifications {
 ////////////this is Notification schema///////////////////////////////////////////////////
 
 
+////////////this is recently connected schema schema///////////////////////////////////////////////////
+
+type RecentlyConnected{
+	
+    "uid": Number | Null    
+}
+
+path /recentlyConnected/{$myUserId}/{$recepientUserId} is RecentlyConnected{
+
+	read() { auth != null && $myUserId === auth.uid }
+	write(){ auth != null && $myUserId === auth.uid }
+}
+////////////this is recently connected schema schema///////////////////////////////////////////////////
 
 
 ////////////this is message schema///////////////////////////////////////////////////
