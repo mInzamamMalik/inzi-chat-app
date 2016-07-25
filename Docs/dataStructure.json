@@ -20,7 +20,7 @@
 
 
 "notifications" : {
-  "Uid" : {
+  "userId" : {
     "uid" : {
       "mewMessages" : 4
     }
@@ -32,9 +32,23 @@
     "userId": {
       "fromUid": {
         "toUid": {
-          //Message Content
+          "from" : "senderUid",
+          "to": "recipientUid",
+          "text": "messageText || null",
+          "image": "base64 image string || null",
+          "timeStamp": "Firebase.ServerValue.TIMESTAMP"
         }
       }
+    }
+  },
+  "recentlyConnected":{
+    "userId": {
+      "uid":"Firebase.ServerValue.TIMESTAMP",
+      "uid":"Firebase.ServerValue.TIMESTAMP"
+    },
+    "userId": {
+      "uid":"Firebase.ServerValue.TIMESTAMP",
+      "uid":"Firebase.ServerValue.TIMESTAMP"
     }
   }
 }

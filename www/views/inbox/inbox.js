@@ -5,7 +5,8 @@ angular.module("starter")
 
   .controller('inboxController', function ($scope, $firebaseArray, notificationService,
                                            universalService, usersService, $stateParams,
-                                           $rootScope, $ionicScrollDelegate, $ionicHistory) {
+                                           $rootScope, $ionicScrollDelegate, $ionicHistory,
+                                           $timeout) {
 
 
     $scope.recipientUid = $stateParams.recipientUid;
@@ -70,34 +71,59 @@ angular.module("starter")
 //////////////////send message started///////////////////////////////////////////////////////////////////////////////
     $scope.sendMessage = function (image) {
 
+
+      var sendingPromise = $timeout(function(){
+        $scope.sending = true;
+        $ionicScrollDelegate.scrollBottom();
+      },500);
+
       makeNotificationNull();
+      //$scope.myMessageRef = $rootScope.ref.child("inbox")
+      // .child($scope.myUid).child($scope.recipientUid);
 
-      $scope.myMessageRef.push().set({
+      //$scope.recepientMessageRef = $rootScope.ref.child("inbox")
+      // .child($scope.recipientUid).child($scope.myUid);
+
+      var data = {
         from: $scope.myUid,
         to: $scope.recipientUid,
         text: $scope.messageText || null,
         image: image || null,
         timeStamp: Firebase.ServerValue.TIMESTAMP
-      });
-      $scope.recepientMessageRef.push().set({
-        from: $scope.myUid,
-        to: $scope.recipientUid,
-        text: $scope.messageText || null,
-        image: image || null,
-        timeStamp: Firebase.ServerValue.TIMESTAMP
+      };
 
-      }, function (error) {
+      $scope.messageText = "";
+
+      //make keys for both nodes by .push() and get key by.key()
+      //and save in a variable for use later
+      var myMessageRefPushId =  $scope.myMessageRef.push().key();
+      var recepientMessageRefPushId = $scope.recepientMessageRef.push().key();
+
+      //create a empty object
+      var updatedData = {};
+
+      //populate empty object with your details
+      updatedData["inbox/" + $scope.myUid +"/"+ $scope.recipientUid + "/" + myMessageRefPushId] = data;
+      updatedData["inbox/" + $scope.recipientUid + "/" + $scope.myUid + "/" + recepientMessageRefPushId] = data;
+      //updatedData["recentlyConnected/" + $scope.myUid + "/" + $scope.recipientUid ] = Firebase.ServerValue.TIMESTAMP;
+
+      //update
+      $rootScope.ref.update(updatedData, function (error) {
 
         if (error) {
           //alert("Data could not be saved." + error);
+          $timeout.cancel(sendingPromise);
+          $scope.sending = false;
+          alert("fail");
         } else {
           //alert("Data saved successfully.");
           notificationInc();
+          $timeout.cancel(sendingPromise);
+          $scope.sending = false;
+          $scope.$apply();
         }
-
       });
 
-      $scope.messageText = "";
 
     };
 //////////////////send message ended///////////////////////////////////////////////////////////////////////////////
