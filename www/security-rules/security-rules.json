@@ -34,6 +34,25 @@
       ".read": "true",
       ".write": "true"
     },
+    "recentlyConnected": {
+      ".read": "auth != null",
+      ".write": "auth != null",
+      "$myUserId": {
+        "$recepientUserId": {
+          "$recentlyConnected": {
+            ".validate": "newData.hasChildren()",
+            "uid": {
+              ".validate": "newData.isNumber() || newData.val() == null"
+            },
+            "$other": {
+              ".validate": "false"
+            },
+            ".read": "auth != null",
+            ".write": "auth != null && $myUserId == auth.uid"
+          }
+        }
+      }
+    },
     "userProfiles": {
       "$UserId": {
         ".validate": "newData.hasChildren()",

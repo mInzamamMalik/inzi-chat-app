@@ -9,7 +9,7 @@ type Message{
 }
 
 path /inbox/{$ownerUserId}/{$senderUserId}/{$message} is Message{
-	
+
 	write(){ auth != null }
 	validate(){ this.from === auth.uid }
 }
@@ -45,15 +45,21 @@ path /notifications {
 ////////////this is recently connected schema schema///////////////////////////////////////////////////
 
 type RecentlyConnected{
-	
-    "uid": Number | Null    
+
+    "uid": Number | Null
 }
 
-path /recentlyConnected/{$myUserId}/{$recepientUserId} is RecentlyConnected{
+path /recentlyConnected {
 
-	read() { auth != null && $myUserId === auth.uid }
-	write(){ auth != null && $myUserId === auth.uid }
+	read() { auth != null }
+	write(){ auth != null }
 }
+path /recentlyConnected/{$myUserId}/{$recepientUserId}/{$recentlyConnected} is RecentlyConnected{
+
+	read() { auth != null }
+	write(){ auth != null }
+}
+
 ////////////this is recently connected schema schema///////////////////////////////////////////////////
 
 
