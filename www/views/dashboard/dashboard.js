@@ -11,20 +11,12 @@ angular.module("starter")
 
 
 
-
-
-    $scope.ref.child("userProfiles").on("value", function (snap) {
-
-      $scope.authData = universalService.authData;
-      $scope.userlist = [];
-
-      $rootScope.ref.child("userProfiles").on("child_added", function (snapShot) {
-
-        //$rootScope.ref.child("userProfiles").child(snapShot.key()).child("loggedIn").update({ status : null});
-        $scope.userlist.push(snapShot.val());
+    $scope.userlist = {};
+    $scope.ref.child("recentlyConnected").child(universalService.authData.uid).on("child_added", function (snap) {
+      $rootScope.ref.child("userProfiles").child(snap.key()).on("value", function (snapShot) {
+        $scope.userlist[snapShot.key()] = snapShot.val();
         $scope.$apply();
       });
-
     });
 
 

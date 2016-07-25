@@ -77,15 +77,15 @@
 
     <ion-list>
 
-
-      <label class="item item-input">
+     <!-- <label class="item item-input">
         <i class="icon ion-search placeholder-icon"></i>
         <input type="text" placeholder="Search" ng-model="search">
-      </label>
+      </label>-->
+      <ion-item class="item-divider">Recently Connected</ion-item>
 
 
       <ion-item class="item-remove-animate item-avatar item-icon-right"
-                ng-repeat="user in userlist | filter:search | orderBy:  ['loggedIn.status','-loggedIn.lastActive'] "
+                ng-repeat="user in userlist | orderBy:  ['loggedIn.status','-loggedIn.lastActive'] "
                 ng-hide=""
                 type="item-text-wrap"
                 href="#/inbox{{user.uid}}">
