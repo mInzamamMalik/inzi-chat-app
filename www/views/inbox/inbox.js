@@ -118,9 +118,16 @@ angular.module("starter")
         } else {
           //alert("Data saved successfully.");
           notificationInc();
+
+          //add to recently connected
+          var recentConnect = {};
+          recentConnect[$scope.myUid + "/" + $scope.recipientUid] = Firebase.ServerValue.TIMESTAMP ;
+          recentConnect[$scope.recipientUid + "/" + $scope.myUid] = Firebase.ServerValue.TIMESTAMP ;
+          $rootScope.ref.child("recentlyConnected").update(recentConnect);
+
           $timeout.cancel(sendingPromise);
           $scope.sending = false;
-          $scope.$apply();
+          //$scope.$apply();
         }
       });
 
@@ -133,7 +140,10 @@ angular.module("starter")
       if (!$scope.messageList.length)return;
       notificationService.showConfirm("Are You Sure??", "do you really want to delete all chat histroy? <br /> you can also drag a message to left for single delete", function () {
         //on true
-        $rootScope.ref.child("inbox").child($scope.myUid).child($scope.recipientUid).set(null);
+        $rootScope.ref.child("inbox")
+          .child($scope.myUid)
+          .child($scope.recipientUid)
+          .set(null);
       }, function () {
         //on false
       })
