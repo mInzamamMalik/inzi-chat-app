@@ -1,31 +1,38 @@
 {
   "usersProfile": {
-  "userId": {
-    "name": "inzi",
-    "gender": "male",
+    "userId": {
+      "name": "inzi",
+      "gender": "male",
 
-    "joined": 232343252345,
-    "expires" : 23343552342,
-    "lastActive": 2345343455,
+      "joined": 232343252345,
+      "expires" : 23343552342,
+      "lastActive": 2345343455,
 
-    "profileImgUrl": "https://scontent.xx.fbcdn.net/hprofile-xat1/v/t1.0-1/s100x100/12191433_902892789779495_5649410334062740494_n.jpg?oh=1adb64c012b6ed8684229c480cf8cc65&oe=577F25EE",
-    "uid" : "facebook:966447266757380",
-    "loggedIn" : true,
-    "geoPosition": {
-      "latitude": 24.43434,
-      "longitude": 72.24566666
+      "profileImgUrl": "https://scontent.xx.fbcdn.net/hprofile-xat1/v/t1.0-1/s100x100/12191433_902892789779495_5649410334062740494_n.jpg?oh=1adb64c012b6ed8684229c480cf8cc65&oe=577F25EE",
+      "uid" : "facebook:966447266757380",
+      "loggedIn" : true,
+      "geoPosition": {
+        "latitude": 24.43434,
+        "longitude": 72.24566666
+      }
     }
-  }
-},
-
-
-"notifications" : {
-  "userId" : {
-    "uid" : {
-      "mewMessages" : 4
+  },
+  "userPosts":{
+    "userId": {
+      "postId":"Firebase.ServerValue.TIMESTAMP",
+      "postId":"Firebase.ServerValue.TIMESTAMP",
+      "postId":"Firebase.ServerValue.TIMESTAMP"
     }
-  }
-},
+  },
+
+
+  "notifications" : {
+    "userId" : {
+      "uid" : {
+        "mewMessages" : 4
+      }
+    }
+  },
 
 
   "inbox": {
@@ -50,5 +57,29 @@
       "uid":"Firebase.ServerValue.TIMESTAMP",
       "uid":"Firebase.ServerValue.TIMESTAMP"
     }
+  },
+
+  "posts":{
+    "postId" :{
+      "by" : "userId",
+      "postText": "string",
+      "postImage": "Base64 String",
+      "likes":{
+        "userId": true
+      },
+      "comments":{
+        "commentId":true
+      }
+    }
+  },
+
+  "comments":{
+    "commentId":{
+      "by": "userId",
+      "commentText" : "string",
+      "at":"Firebase.ServerValue.TIMESTAMP",
+      "edited": "boolean"
+    }
   }
+
 }
