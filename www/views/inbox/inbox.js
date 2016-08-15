@@ -72,10 +72,10 @@ angular.module("starter")
     $scope.sendMessage = function (image) {
 
 
-      var sendingPromise = $timeout(function(){
+      var sendingPromise = $timeout(function () {
         $scope.sending = true;
         $ionicScrollDelegate.scrollBottom();
-      },500);
+      }, 500);
 
       makeNotificationNull();
       //$scope.myMessageRef = $rootScope.ref.child("inbox")
@@ -96,14 +96,14 @@ angular.module("starter")
 
       //make keys for both nodes by .push() and get key by.key()
       //and save in a variable for use later
-      var myMessageRefPushId =  $scope.myMessageRef.push().key();
+      var myMessageRefPushId = $scope.myMessageRef.push().key();
       var recepientMessageRefPushId = $scope.recepientMessageRef.push().key();
 
       //create a empty object
       var updatedData = {};
 
       //populate empty object with your details
-      updatedData["inbox/" + $scope.myUid +"/"+ $scope.recipientUid + "/" + myMessageRefPushId] = data;
+      updatedData["inbox/" + $scope.myUid + "/" + $scope.recipientUid + "/" + myMessageRefPushId] = data;
       updatedData["inbox/" + $scope.recipientUid + "/" + $scope.myUid + "/" + recepientMessageRefPushId] = data;
       //updatedData["recentlyConnected/" + $scope.myUid + "/" + $scope.recipientUid ] = Firebase.ServerValue.TIMESTAMP;
 
@@ -121,8 +121,8 @@ angular.module("starter")
 
           //add to recently connected
           var recentConnect = {};
-          recentConnect[$scope.myUid + "/" + $scope.recipientUid] = Firebase.ServerValue.TIMESTAMP ;
-          recentConnect[$scope.recipientUid + "/" + $scope.myUid] = Firebase.ServerValue.TIMESTAMP ;
+          recentConnect[$scope.myUid + "/" + $scope.recipientUid] = Firebase.ServerValue.TIMESTAMP;
+          recentConnect[$scope.recipientUid + "/" + $scope.myUid] = Firebase.ServerValue.TIMESTAMP;
           $rootScope.ref.child("recentlyConnected").update(recentConnect);
 
           $timeout.cancel(sendingPromise);
@@ -198,15 +198,10 @@ angular.module("starter")
       };
     }
 
-
-    $scope.pickThisEcomotion = function($event){
+    $scope.pickThisEcomotion = function ($event) {
       console.log($event.target.farthestViewportElement.nextElementSibling.innerText);
-
-      $scope.messageText +=$event.target.farthestViewportElement.nextElementSibling.innerText;
-
-
+      $scope.messageText += $event.target.farthestViewportElement.nextElementSibling.innerText;
     }
-
 
   });
 

@@ -1,61 +1,28 @@
-// Ionic Starter App
+//Inzi Chat App
+//http://facebook.com/InziChat
+//
 
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic','firebase'])
+angular.module('starter', ['ionic', 'firebase'])
 
-
-
-
-
-
-
-  .controller("appController", function ($rootScope,$ionicScrollDelegate) {
-
-
+  .controller("appController", function ($rootScope, $ionicScrollDelegate) {
 
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
 
-      if(toState.name == "dashboard"){
+      if (toState.name == "dashboard") {
 
         console.log("scroll to top");
         setTimeout(function () {
           $ionicScrollDelegate.scrollTop();
         }, 100)
 
-      }else if(toState.name == "inbox"){
+      } else if (toState.name == "inbox") {
         console.log("scroll to bottom");
         setTimeout(function () {
           $ionicScrollDelegate.scrollBottom();
         }, 100)
       }
-
     });
-
-
-
-
   })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   .run(function ($ionicPlatform) {

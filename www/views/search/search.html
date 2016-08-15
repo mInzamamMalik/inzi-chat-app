@@ -6,14 +6,12 @@
 
   <ion-content overflow-scroll="false">
 
-
     <ion-list>
 
       <label class="item item-input">
         <i class="icon ion-search placeholder-icon"></i>
         <input type="text" placeholder="Search" ng-model="search">
       </label>
-
 
       <ion-item class="item-remove-animate item-avatar item-icon-right"
                 ng-repeat="user in userlist | filter:search | orderBy:  ['loggedIn.status','-loggedIn.lastActive'] "
@@ -38,7 +36,5 @@
       </ion-item>
 
     </ion-list>
-
-
   </ion-content>
 </ion-view>

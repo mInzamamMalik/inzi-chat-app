@@ -1,15 +1,10 @@
-/**
- * Created by malikasinger on 19/08/2015.
- */
 angular.module("starter")
 
-  .controller('dashboardController', function ($rootScope, $scope, universalService, usersService,$ionicScrollDelegate /*,$http, $ionicLoading, $ionicPopup, $timeout*/) {
+  .controller('dashboardController', function ($rootScope, $scope, universalService, usersService, $ionicScrollDelegate /*,$http, $ionicLoading, $ionicPopup, $timeout*/) {
 
     $rootScope.ref.child("userProfiles").child(universalService.authData.uid).on("value", function (snap) {
       $scope.myProfile = snap.val();
     });
-
-
 
     $scope.userlist = {};
     $scope.ref.child("recentlyConnected").child(universalService.authData.uid).on("child_added", function (snap) {
@@ -18,8 +13,6 @@ angular.module("starter")
         $scope.$apply();
       });
     });
-
-
 
     $rootScope.ref.child("notifications").child(usersService.myUid()).on("value", function () {
 
@@ -46,12 +39,9 @@ angular.module("starter")
       $scope.$apply();
     });
 
-
     $scope.logout = function () {
       universalService.logout();
     };
-
-
 
   });
 

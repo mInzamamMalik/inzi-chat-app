@@ -1,19 +1,13 @@
-/**
- * Created by 205 on 3/10/2016.
- */
-
 
 angular.module('starter')
 
   .service("universalService", function ($rootScope, $state, notificationService, locationService,$ionicHistory ) {
+
     var vm = this;
-
-
     $rootScope.ref = new Firebase("https://inzi-chat-app.firebaseio.com");
 
     vm.authData = $rootScope.ref.getAuth();
     authDataCallback(vm.authData);
-
 
     vm.authWithFacebook = function () {
       $rootScope.ref.authWithOAuthPopup("facebook", function (error, authData) {
@@ -27,7 +21,7 @@ angular.module('starter')
           vm.currentRef = $rootScope.ref.child("userProfiles").child(authData.uid);
 
           vm.currentRef.update({
-            name: authData.facebook.displayName  || null ,
+            name: authData.facebook.displayName || null,
             gender: authData.facebook.cachedUserProfile.gender || null,
             profileImageURL: authData.facebook.profileImageURL || null,
             expires: authData.expires || null,
@@ -66,9 +60,9 @@ angular.module('starter')
           vm.currentRef.update({
             name: authData.twitter.displayName,
             //gender: authData.facebook.cachedUserProfile.gender,
-            profileImageURL: authData.twitter.profileImageURL  || null,
-            expires: authData.expires  || null,
-            uid: authData.uid  || null
+            profileImageURL: authData.twitter.profileImageURL || null,
+            expires: authData.expires || null,
+            uid: authData.uid || null
           });
 
           vm.currentRef.on("value", function (snap) {
@@ -103,9 +97,9 @@ angular.module('starter')
           vm.currentRef.update({
             name: authData.google.displayName,
             // gender: authData.google.cachedUserProfile.gender,
-            profileImageURL: authData.google.profileImageURL  || null,
-            expires: authData.expires  || null,
-            uid: authData.uid  || null
+            profileImageURL: authData.google.profileImageURL || null,
+            expires: authData.expires || null,
+            uid: authData.uid || null
           });
 
           vm.currentRef.on("value", function (snap) {
@@ -133,18 +127,18 @@ angular.module('starter')
         //make user online
 
         $rootScope.ref.child("userProfiles").child(authData.uid).child("loggedIn").onDisconnect().update({
-          status : null,
-          lastActive : Firebase.ServerValue.TIMESTAMP
+          status: null,
+          lastActive: Firebase.ServerValue.TIMESTAMP
         });
         $rootScope.ref.child("userProfiles").child(authData.uid).child("loggedIn").update({
-          status : true
+          status: true
         });
 
         //start watching his location
         locationService.startWatchingMyGeoPosition();
 
         //console.log("current view is:",$ionicHistory.currentView());
-        if($ionicHistory.currentView().stateName == "home"){
+        if ($ionicHistory.currentView().stateName == "home") {
 
           $state.go("dashboard");
 
@@ -154,7 +148,7 @@ angular.module('starter')
         console.log("User is logged out");
         $state.go("home");
         //notificationService.showAlert("please login again", "its look like your session is expired")
-        if($ionicHistory.currentView().stateName != "home"){
+        if ($ionicHistory.currentView().stateName != "home") {
 
           notificationService.showAlert("please login again", "its look like you are not logged in or your session is expired");
           $state.go("home");

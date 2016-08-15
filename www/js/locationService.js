@@ -1,7 +1,3 @@
-/**
- * Created by 205 on 3/19/2016.
- */
-
 
 
 angular.module('starter')
