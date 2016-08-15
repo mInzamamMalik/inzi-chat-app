@@ -170,7 +170,7 @@ angular.module('starter')
   .factory("ImageService", function () {
     return {
       //call back will receive 1 parameter with base64 string in it
-      webUrlToBase64: function (webUrl, callback) {
+      webUrlToBase64: function (url, callback) {
         var xhr = new XMLHttpRequest();
         xhr.responseType = 'blob';
         xhr.onload = function () {
