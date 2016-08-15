@@ -171,6 +171,25 @@ angular.module('starter')
       $state.go("home");
       notificationService.showAlert("Thankyou for using :-)", "hope you experienced well");
     }
+  })
+
+  .factory("ImageService", function () {
+    return {
+      //call back will receive 1 parameter with base64 string in it
+      webUrlToBase64: function (webUrl, callback) {
+        var xhr = new XMLHttpRequest();
+        xhr.responseType = 'blob';
+        xhr.onload = function () {
+          var reader = new FileReader();
+          reader.onloadend = function () {
+            callback(reader.result);
+          };
+          reader.readAsDataURL(xhr.response);
+        };
+        xhr.open('GET', url);
+        xhr.send();
+      }
+    }
   });
 
 
