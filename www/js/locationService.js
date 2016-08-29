@@ -2,7 +2,7 @@
 
 angular.module('starter')
 
-  .service("locationService", function ($rootScope, notificationService, usersService) {
+  .service("locationService", function ($rootScope, usersService) {
     var count = 0;
     this.startWatchingMyGeoPosition = function () {
       navigator.geolocation.watchPosition(function (position) {
@@ -14,7 +14,7 @@ angular.module('starter')
         console.log(" position: ",position.coords.latitude, position.coords.longitude);
       }, function (geoErr) {
         if (!count) {
-          notificationService.showAlert("failed to get your location", "kindly allow this app to get your location for your best experience");
+          //notificationService.showAlert("failed to get your location", "kindly allow this app to get your location for your best experience");
           console.log("geoError : ", geoErr);
           count = 1;
         }
