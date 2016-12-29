@@ -103,11 +103,12 @@ angular.module("starter")
       var updatedData = {};
 
       //populate empty object with your details
-      updatedData[ $scope.myUid +"/"+ $scope.recipientUid + "/" + myMessageRefPushId] = data;
-      updatedData[ $scope.recipientUid + "/" + $scope.myUid + "/" + recepientMessageRefPushId] = data;
+      updatedData["inbox/" + $scope.myUid +"/"+ $scope.recipientUid + "/" + myMessageRefPushId] = data;
+      updatedData["inbox/" + $scope.recipientUid + "/" + $scope.myUid + "/" + recepientMessageRefPushId] = data;
+      //updatedData["recentlyConnected/" + $scope.myUid + "/" + $scope.recipientUid ] = Firebase.ServerValue.TIMESTAMP;
 
       //update
-      $rootScope.ref.child("inbox").update(updatedData, function (error) {
+      $rootScope.ref.update(updatedData, function (error) {
 
         if (error) {
           //alert("Data could not be saved." + error);
@@ -119,6 +120,7 @@ angular.module("starter")
           notificationInc();
           $timeout.cancel(sendingPromise);
           $scope.sending = false;
+          $scope.$apply();
         }
       });
 
